@@ -1,0 +1,130 @@
+package com.devgen.inheritance;
+
+
+class Car {
+  private String number;
+  private String color;
+  private String model;
+  private int manufactureYear;
+  private String compnayName;
+
+  public Car(String number, String color) {
+    this.number = number;
+    this.color = color;
+  }
+
+  public boolean equals(Object obj) {
+    System.out.println("Car equals() method called..");
+    //this -> car1, obj => car2
+   // Object obj = car2;
+    Car car2 = (Car) obj; // Downcasting
+    //Logic - Compare only the numbers and not color
+    if(this.number.equals(car2.number))
+      return true;
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return "Number:" + number +", Color:" + color;
+  }
+}
+
+public class EqualTest {
+
+  public static void main(String[] args) {
+
+    Car car1 = new Car("MH13CS8420", "red");
+    Car car2 = new Car("MH13CS8421", "red");
+
+    System.out.println(car1);
+    System.out.println(car2);
+
+//    Object obj = new Car();
+//    Car car = (Car) obj;
+
+    //3000 == 4000
+    //car1 = this, car = obj
+    //return (this == obj)
+    if(car1 == car2) {
+      System.out.println("Both cars are same");
+    }else {
+      System.out.println("Both cars are different");
+    }
+
+    if(car1.equals(car2)) {
+      System.out.println("Both cars are same by equals()");
+    }else {
+      System.out.println("Both cars are different by equals()");
+    }
+
+
+
+
+
+
+
+    String s1 = "sunil"; // SCP - String constant pool
+    String s2 = new String( "sunil");
+
+    //1000 == 2000
+    if(s1 == s2) {
+      System.out.println("Both are same");
+    }else {
+      System.out.println("Both are different");
+    }
+
+
+    //Compare contents of the object - equals() method
+    if(s1.equals(s2)) {
+      System.out.println("Both are same by equals()");
+    }else {
+      System.out.println("Both are different by equals()");
+    }
+
+
+    Point p1 = new Point(10, 20);
+    Point p2 = new Point(10, 20);
+
+    if(p1.equals(p2)) {
+      System.out.println("Both points are same");
+    }else {
+      System.out.println("Both points are different");
+    }
+  }
+}
+
+class AadharCard {
+  private String aadharNumber; //
+  private String name;
+  private String address;
+}
+
+class DNA {
+  private String dnaNumber; // unique
+  private String dnaName;
+  private String dnaProperties;
+}
+
+class Point {
+  private int x;
+  private int y;
+
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  public boolean equals(Object obj) {
+
+
+    Point p2 = (Point) obj;
+
+    if(this.x == p2.x && this.y == p2.y)
+      return true;
+    else
+      return false;
+  }
+
+
+}
