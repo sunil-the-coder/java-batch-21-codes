@@ -1,0 +1,287 @@
+package com.devgen.inheritance.adv;
+
+public class Bike extends Vehicle{
+
+  public void applyHorns() {
+    System.out.println("Bike horn applied.");
+  }
+}
+
+
+
+package com.devgen.inheritance.adv;
+
+public class Car extends Vehicle {
+
+  public void applyBreaks() {
+    System.out.println("Car breaks applied.");
+  }
+  public void applyHorns() {
+    System.out.println("Car horn applied.");
+  }
+}
+
+
+package com.devgen.inheritance.adv;
+
+public class Truck extends Vehicle {
+
+  public void applyHorns() {
+    System.out.println("Truck horn applied.");
+  }
+}
+
+
+
+package com.devgen.inheritance.adv;
+
+public class Vehicle {
+
+  public void applyBreaks() {
+    System.out.println("Vehicle breaks applied.");
+  }
+
+  public void applyHorns() {
+    System.out.println("Vehicle horn applied.");
+  }
+
+}
+
+package com.devgen.inheritance.adv;
+
+import java.util.Scanner;
+
+public class VehicleTest {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("What type of vehicle do you want to create?");
+    int choice = scanner.nextInt();
+
+    //Run time polymorphism
+    Vehicle vehicle = null;
+
+    switch( choice ) {
+      case 1:
+        System.out.println("You have selected Bike");
+        vehicle = new Bike();
+        break;
+      case 2:
+        System.out.println("You have selected Car");
+        vehicle = new Car();
+        break;
+      case 3:
+        System.out.println("You have selected Truck");
+        vehicle = new Truck();
+        break;
+      default:
+        System.out.println("Invalid choice");
+        break;
+    }
+
+    //standard code - Loosly coupled code
+    if(vehicle != null) {
+      vehicle.applyBreaks();
+      vehicle.applyHorns();
+    }
+
+    scanner.close();
+  }
+}
+
+
+===============================================
+
+
+// abstract classes
+
+
+package com.devgen.inheritance.adv;
+
+import java.util.Objects;
+
+//abstract class
+public abstract class Vehicle {
+
+  //abstract method
+  public abstract void applyBreaks();
+
+  public void applyHorns() {
+    System.out.println("Vehicle horn applied.");
+  }
+
+}
+
+
+--------
+
+
+
+package com.devgen.inheritance.adv;
+
+//abstract class
+public interface Vehicle {
+
+  //abstract method
+  void applyBreaks();
+  void applyHorns();
+
+}
+
+
+--------
+
+package com.devgen.inheritance.adv;
+
+public class Car implements Vehicle {
+
+  public void applyBreaks() {
+    System.out.println("Car breaks applied.");
+  }
+
+  public void applyHorns() {
+    System.out.println("Car horn applied.");
+  }
+
+}
+
+
+package com.devgen.inheritance.adv;
+
+import java.util.Scanner;
+
+public class VehicleTest {
+
+  public static void main(String[] args) {
+
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("What type of vehicle do you want to create?");
+    int choice = scanner.nextInt();
+
+    //Run time polymorphism
+    Vehicle vehicle = null;
+
+    switch( choice ) {
+      case 1:
+        System.out.println("You have selected Bike");
+        vehicle = new Bike();
+        break;
+      case 2:
+        System.out.println("You have selected Car");
+        vehicle = new Car();
+        break;
+      case 3:
+        System.out.println("You have selected Truck");
+        vehicle = new Truck();
+        break;
+      default:
+        System.out.println("Invalid choice");
+        break;
+    }
+
+    //standard code - Loosly coupled code
+    if(vehicle != null) {
+      vehicle.applyBreaks();
+      vehicle.applyHorns();
+    }
+
+    scanner.close();
+  }
+}
+
+-------------------------------------
+
+
+package com.devgen.inheritance.adv;
+
+//abstract class
+public abstract class Vehicle {
+
+  private String name;
+  private String modelNo;
+
+  public Vehicle(String name, String modelNo) {
+    this.name = name;
+    this.modelNo = modelNo;
+  }
+
+  //abstract method
+  public void applyBreaks() {
+    System.out.println("Default Breaks applied.");
+  }
+
+  public abstract void applyHorns();
+
+}
+
+----------
+
+package com.devgen.inheritance.adv;
+
+public class Bike extends Vehicle{
+
+  private String someExtraProperty;
+
+  public Bike(String modelNo, String name, String someExtraProperty) {
+    super(modelNo, name);
+    this.someExtraProperty = someExtraProperty;
+  }
+
+
+  public void applyBreaks() {
+    System.out.println("Bike breaks applied.");
+  }
+
+  public void applyHorns() {
+    System.out.println("Bike horn applied.");
+  }
+}
+
+
+--------
+
+package com.devgen.inheritance.adv;
+
+public interface RemoteControllable {
+  void controlUsingRemote();
+}
+
+------
+
+//standard code - Loosly coupled code
+    if(vehicle != null) {
+      vehicle.applyBreaks();
+      vehicle.applyHorns();
+      vehicle.controlUsingRemote();
+    }
+
+    ------
+
+  package com.devgen.inheritance.adv;
+
+public class Car extends Vehicle implements RemoteControllable {
+
+  public void applyBreaks() {
+    System.out.println("Car breaks applied.");
+  }
+
+  public void applyHorns() {
+    System.out.println("Car horn applied.");
+  }
+
+  public void controlUsingRemote() {
+    System.out.println("Car is controlled using remote.");
+  }
+}
+
+
+---------
+
+
+
+
+
+
