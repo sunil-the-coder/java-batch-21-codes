@@ -1,0 +1,366 @@
+
+interface A {
+    void disp();
+}
+
+interface B extends A {
+    void show();
+}
+
+class C implements B {
+    public void disp() {
+        System.out.println("C class disp()");
+    }
+    public void show() {
+        System.out.println("C class show()");
+    }
+}
+
+public class InnerTest {
+
+    public static void main(String[] args) {
+        
+        B a = new C();
+        a.show();
+        a.disp();
+
+        System.out.println("Hello");
+    }
+}
+
+
+
+---------------
+
+
+
+interface A {
+    void disp();
+}
+
+interface B extends A {
+    void show();
+}
+
+abstract class C implements B {
+    public void disp() {
+        System.out.println("C class disp()");
+    }
+}
+
+class D extends C {
+    public void show() {
+        System.out.println("D class show()");
+    }
+}
+
+
+public class InnerTest {
+
+    public static void main(String[] args) {
+        
+        B a = new C();
+        a.show();
+        a.disp();
+
+        System.out.println("Hello");
+    }
+}
+
+
+
+------------
+
+
+
+
+//Outer class
+class Student { // not parent
+    private int id;
+    private String name;
+    private Address address;
+
+    public void show() {
+        System.out.println("Student show()");
+    }
+
+    //Inner class / nested class ( not child ) / Helper class for outer class. => Strong Encapsulation
+    class Address {
+        private int pincode;
+        private String city;
+
+        public void disp() {
+            System.out.println("Address disp()");
+        }
+
+    }
+
+}
+
+
+
+public class InnerTest {
+
+    public static void main(String[] args) {
+
+        //Outer class object creation
+        Student stud = new Student();
+        stud.show();
+
+        //Inner class object creation
+        Student.Address address = stud.new Address();
+        address.disp();
+
+        
+
+    }
+
+    }
+
+--------------
+
+
+//Outer class
+class Student { // not parent
+    private int id;
+    private String name;
+
+    static int data = 100;
+
+    private Address address;
+
+    public void show() {
+        address = new Address();
+        System.out.println("Student show()");
+    }
+
+    //Inner class / nested class ( not child ) / Helper class for outer class. => Strong Encapsulation
+    static class Address {
+        private int pincode;
+        private String city;
+
+        public void disp() {
+            System.out.println("Address disp()");
+        }
+
+    }
+}
+
+public class InnerTest {
+
+    public static void main(String[] args) {
+
+        //Outer class object creation
+         Student stud = new Student();
+
+        // stud.show();
+        // System.out.println(Student.data);
+
+        //inner class ( without static )
+       // Student.Address add = stud.new Address();
+
+        //nested static class object creation ( Address )
+        Student.Address address = new Student.Address();
+        address.disp();
+
+     
+
+----------------------
+
+
+class A {
+    public void show() {
+        System.out.println("A show() logic");
+    }
+}
+
+// class B extends A {
+//     public void show() {
+//         System.out.println("B show() logic....");
+//     }
+// }
+
+public class AnomymousClass {
+
+    public static void main(String[] args) {
+        
+        A a = new A() {
+            public void show() {
+                System.out.println("B show() logic....");
+            }
+        };
+        a.show();
+
+    }
+}
+
+
+----------------
+
+
+
+//functional interface
+interface A {
+    public void show();
+}
+
+// class B implements A {
+//     public void show() {
+//         System.out.println("B show() logic....");
+//     }
+// }
+
+public class AnomymousClass {
+
+    public static void main(String[] args) {
+        
+        //before java 1.8
+        // A a = new A() {
+        //     public void show() {
+        //         System.out.println("B show() new logic....");
+        //     }
+        // };
+
+        //after java 1.8 = Lambda Expressions ( Which uses functional interfaces )
+        A a = () -> System.out.println("B show() new java.1.8 logic....");
+        a.show();
+
+    }
+}
+
+
+--------------------
+
+
+
+---- Tightly coupled design -----
+
+
+class Programmer {
+
+    private String name;
+
+    public Programmer(String name) {
+        this.name = name;
+    }
+
+    //Very much tighly coupled with only laptop. No flexibility to choose diff devices.
+    public void developApp(Laptop laptop) {
+        System.out.println(name +" is using laptop to develop an application");
+        laptop.code();
+    }
+    public void developApp(Tablet tablet) {
+        System.out.println(name +" is using tablet to develop an application");
+        tablet.code();
+    }
+    public void developApp(Desktop desktop) {
+        System.out.println(name +" is using desktop to develop an application");
+        desktop.code();
+    }
+}
+
+class Laptop {
+    public void code() {
+        System.out.println("Coding using laptop.....");
+    }
+}
+
+class Tablet {
+    public void code() {
+        System.out.println("Coding using tablet.....");
+    }
+}
+
+class Desktop {
+    public void code() {
+        System.out.println("Coding using desktop.....");
+    }
+}
+public class ProgrammerTest {
+
+    public static void main(String[] args) {
+
+        Laptop laptop1 = new Laptop();
+        Tablet tablet = new Tablet();
+        Desktop desktop = new Desktop();
+
+        Programmer programmer1 = new Programmer("Ajit Yadav");
+        programmer1.developApp(laptop1);
+
+        Programmer programmer2 = new Programmer("Gayatri");
+        programmer2.developApp(tablet);
+
+        Programmer programmer3 = new Programmer("Ashutosh");
+        programmer3.developApp(desktop);
+        
+    }
+}
+
+
+
+---- Loosly coupled design -------
+
+class Programmer {
+
+    private String name;
+
+    public Programmer(String name) {
+        this.name = name;
+    }
+
+    //Loosly Coupled design - flexibility to choose diff devices.- CLEAN CODE, Maintanable code
+    public void developApp(Computer computer) {
+        System.out.println(name +" is using computer to develop an application");
+        computer.code();
+    }   
+}
+
+interface Computer {
+    void code();
+}
+
+class Laptop implements Computer {
+    public void code() {
+        System.out.println("Coding using laptop.....");
+    }
+}
+
+class Tablet implements Computer {
+    public void code() {
+        System.out.println("Coding using tablet.....");
+    }
+}
+
+class Desktop implements Computer {
+    public void code() {
+        System.out.println("Coding using desktop.....");
+    }
+}
+public class ProgrammerTest {
+
+    public static void main(String[] args) {
+
+        //Upcasting
+        // Computer computer = new Laptop();
+        // computer = new Tablet();
+        // computer = new Desktop();
+
+        Laptop laptop1 = new Laptop();
+        Tablet tablet = new Tablet();
+        Desktop desktop = new Desktop();
+
+        Programmer programmer1 = new Programmer("Ajit Yadav");
+        programmer1.developApp(laptop1);
+
+        Programmer programmer2 = new Programmer("Gayatri");
+        programmer2.developApp(tablet);
+
+        Programmer programmer3 = new Programmer("Ashutosh");
+        programmer3.developApp(desktop);
+        
+    }
+}
+
+
+
+
